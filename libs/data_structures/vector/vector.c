@@ -33,9 +33,30 @@ void clear(vector *v) {
 }
 
 void shrinkToFit(vector *v) {
-
+    v->data = (int *) realloc(v->data,sizeof(int) * v->size);
 }
 
 void deleteVector(vector *v) {
     free(v->data);
+}
+
+bool isEmpty(vector *v) {
+    return v->size == 0;
+}
+
+bool isFull(vector *v) {
+    return v->data == sizeof(int) * v->capacity ;
+}
+
+int getVectorValue(vector *v, size_t i) {
+    return v->data[i];
+}
+
+void pushBack(vector *v, int x) {
+
+
+}
+
+void popBack(vector *v) {
+
 }
