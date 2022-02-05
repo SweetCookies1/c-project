@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.h
+stdbool.h
+-
+
+C:/Users/user/CLionProjects/laba5b/main.c
+stdio.h
+-
+stdint.h
+-
+libs/data_structures/vector/vector.h
+C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.h
+

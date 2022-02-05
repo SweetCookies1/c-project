@@ -2,10 +2,10 @@
 // Created by user on 05.02.2022.
 //
 
+#include <stdbool.h>
+
 #ifndef LABA5B_VECTOR_H
 #define LABA5B_VECTOR_H
-
-#endif //LABA5B_VECTOR_H
 
 typedef struct vector {
     int *data;
@@ -39,3 +39,4 @@ int* back(vector *v);
 
 int* front(vector *v);
 
+#endif //LABA5B_VECTOR_H
