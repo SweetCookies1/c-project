@@ -10,8 +10,8 @@
 
 #include "vector.h"
 
-vector createVector(size_t n) {
-    vector v = {(int *) (malloc(sizeof(int) * n)), 0, n};
+vector createVector(size_t size) {
+    vector v = {(int *) (malloc(sizeof(int) * size)), 0, size};
     if (v.data == NULL) {
         fprintf(stderr, "bad alloc");
         exit(1);
@@ -19,16 +19,22 @@ vector createVector(size_t n) {
     return v;
 }
 
-/*
-void reverse(vector *v, size_t newCapacity) {
+
+void reserve(vector *v, size_t newCapacity) {
     if(newCapacity == 0)
         v->data = NULL;
     else if (newCapacity < v->size)
         v->size = newCapacity;
-    else
-
+    else if (v->capacity <= newCapacity) {
+        v->capacity = newCapacity;
+        v->data = (int *) realloc(v->data, sizeof(int) * v->capacity);
+    }
+    else {
+        fprintf(stderr, "bad alloc");
+        exit(1);
+    }
 }
-*/
+
 void clear(vector *v) {
     v->size = 0;
 }
@@ -79,5 +85,5 @@ int *back(vector *v) {
 }
 
 int *front(vector *v) {
-    return &v->data[0];
+    return atVector(v, v->data[0]);;
 }

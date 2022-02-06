@@ -13,7 +13,7 @@ typedef struct vector {
     size_t capacity;
 } vector;
 
-vector createVector(size_t n);
+vector createVector(size_t size);
 
 void reverse(vector *v, size_t newCapacity);
 
