@@ -12,12 +12,13 @@
 
 vector createVector(size_t n) {
     vector v = {(int *) (malloc(sizeof(int) * n)), 0, n};
-    if(v.data == NULL) {
+    if (v.data == NULL) {
         fprintf(stderr, "bad alloc");
         exit(1);
     }
     return v;
 }
+
 /*
 void reverse(vector *v, size_t newCapacity) {
     if(newCapacity == 0)
@@ -33,7 +34,7 @@ void clear(vector *v) {
 }
 
 void shrinkToFit(vector *v) {
-    v->data = (int *) realloc(v->data,sizeof(int) * v->size);
+    v->data = (int *) realloc(v->data, sizeof(int) * v->size);
 }
 
 void deleteVector(vector *v) {
@@ -48,7 +49,7 @@ bool isEmpty(vector *v) {
 }
 
 bool isFull(vector *v) {
-    return v->size == v->capacity ;
+    return v->size == v->capacity;
 }
 
 int getVectorValue(vector *v, size_t i) {
@@ -65,14 +66,19 @@ void popBack(vector *v) {
 
 }
 
-int* atVector(vector *v, size_t index) {
+int *atVector(vector *v, size_t index) {
+    if(index > v->size) {
+        fprintf(stderr, "bad alloc");
+        exit(1);
+    }
+    else
+        return &v->data[index];
+}
+
+int *back(vector *v) {
 
 }
 
-int* back(vector *v) {
-
-}
-
-int* front(vector *v) {
+int *front(vector *v) {
 
 }
