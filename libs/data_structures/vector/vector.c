@@ -18,7 +18,7 @@ vector createVector(size_t n) {
     }
     return v;
 }
-
+/*
 void reverse(vector *v, size_t newCapacity) {
     if(newCapacity == 0)
         v->data = NULL;
@@ -27,7 +27,7 @@ void reverse(vector *v, size_t newCapacity) {
     else
 
 }
-
+*/
 void clear(vector *v) {
     v->size = 0;
 }
@@ -48,7 +48,7 @@ bool isEmpty(vector *v) {
 }
 
 bool isFull(vector *v) {
-    return v->data == sizeof(int) * v->capacity ;
+    return v->size == v->capacity ;
 }
 
 int getVectorValue(vector *v, size_t i) {
@@ -56,10 +56,23 @@ int getVectorValue(vector *v, size_t i) {
 }
 
 void pushBack(vector *v, int x) {
-
-
+    int pos = v->size;
+    v->data[pos] = x;
+    v->size++;
 }
 
 void popBack(vector *v) {
+
+}
+
+int* atVector(vector *v, size_t index) {
+
+}
+
+int* back(vector *v) {
+
+}
+
+int* front(vector *v) {
 
 }
