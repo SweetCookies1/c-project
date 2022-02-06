@@ -67,18 +67,17 @@ void popBack(vector *v) {
 }
 
 int *atVector(vector *v, size_t index) {
-    if(index > v->size) {
-        fprintf(stderr, "bad alloc");
+    if (index >= v->size) {
+        fprintf(stderr, "IndexError: a[index] is not exist");
         exit(1);
-    }
-    else
+    } else
         return &v->data[index];
 }
 
 int *back(vector *v) {
-
+    return atVector(v, v->size - 1);
 }
 
 int *front(vector *v) {
-
+    return &v->data[0];
 }
