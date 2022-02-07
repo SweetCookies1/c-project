@@ -19,13 +19,12 @@ vector createVector(size_t size) {
     return v;
 }
 
-
 void reserve(vector *v, size_t newCapacity) {
     if(newCapacity == 0)
         v->data = NULL;
-    else if (newCapacity < v->size)
+    else if (newCapacity <= v->size)
         v->size = newCapacity;
-    else if (v->capacity <= newCapacity) {
+    else if (v->capacity < newCapacity) {
         v->capacity = newCapacity;
         v->data = (int *) realloc(v->data, sizeof(int) * v->capacity);
     }
@@ -40,7 +39,7 @@ void clear(vector *v) {
 }
 
 void shrinkToFit(vector *v) {
-    v->data = (int *) realloc(v->data, sizeof(int) * v->size);
+    reserve(v, v->size);
 }
 
 void deleteVector(vector *v) {
@@ -63,12 +62,12 @@ int getVectorValue(vector *v, size_t i) {
 }
 
 void pushBack(vector *v, int x) {
-    int pos = v->size;
-    v->data[pos] = x;
+    v->data[v->size] = x;
     v->size++;
 }
 
 void popBack(vector *v) {
+    v->size--;
 
 }
 
@@ -85,5 +84,6 @@ int *back(vector *v) {
 }
 
 int *front(vector *v) {
-    return atVector(v, v->data[0]);;
+    return atVector(v, 0);
 }
+
