@@ -67,6 +67,10 @@ void pushBack(vector *v, int x) {
 }
 
 void popBack(vector *v) {
+    if(isEmpty(v)) {
+        printf("vector is empty");
+        return;
+    }
     v->size--;
 
 }
