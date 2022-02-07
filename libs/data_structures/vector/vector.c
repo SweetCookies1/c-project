@@ -10,12 +10,20 @@
 
 #include "vector.h"
 
+void empty_vector_happening(){
+    fprintf(stderr ,"vector is empty");
+    exit(1);
+}
+
+void bad_alloc_happening(){
+    fprintf(stderr, "bad alloc");
+    exit(1);
+}
+
 vector createVector(size_t n) {
     vector v = {(int *) (malloc(sizeof(int) * n)), 0, n};
-    if (v.data == NULL) {
-        fprintf(stderr, "bad alloc");
-        exit(1);
-    }
+    if (v.data == NULL)
+        bad_alloc_happening();
     return v;
 }
 
@@ -28,10 +36,8 @@ void reserve(vector *v, size_t newCapacity) {
         v->capacity = newCapacity;
         v->data = (int *) realloc(v->data, sizeof(int) * v->capacity);
     }
-    else {
-        fprintf(stderr, "bad alloc");
-        exit(1);
-    }
+    else
+        bad_alloc_happening();
 }
 
 void clear(vector *v) {
@@ -73,12 +79,9 @@ void pushBack(vector *v, int x) {
 }
 
 void popBack(vector *v) {
-    if(isEmpty(v)) {
-        printf("vector is empty");
-        return;
-    }
+    if(isEmpty(v))
+        empty_vector_happening();
     v->size--;
-
 }
 
 int *atVector(vector *v, size_t index) {
@@ -90,18 +93,13 @@ int *atVector(vector *v, size_t index) {
 }
 
 int *back(vector *v) {
-    if(isEmpty(v)) {
-        printf("vector is empty");
-        return (int *) -1;
-    }
+    if(isEmpty(v))
+        empty_vector_happening();
     return atVector(v, v->size - 1);
 }
 
 int *front(vector *v) {
-    if(isEmpty(v)) {
-        printf("vector is empty");
-        return (int *) -1;
-    }
+    if (isEmpty(v))
+        empty_vector_happening();
     return atVector(v, 0);
 }
-
