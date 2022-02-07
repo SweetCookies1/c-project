@@ -10,8 +10,8 @@
 
 #include "vector.h"
 
-vector createVector(size_t size) {
-    vector v = {(int *) (malloc(sizeof(int) * size)), 0, size};
+vector createVector(size_t n) {
+    vector v = {(int *) (malloc(sizeof(int) * n)), 0, n};
     if (v.data == NULL) {
         fprintf(stderr, "bad alloc");
         exit(1);
@@ -62,6 +62,12 @@ int getVectorValue(vector *v, size_t i) {
 }
 
 void pushBack(vector *v, int x) {
+    if (isFull(v)) {
+        if(v->capacity == 0)
+            reserve(v, 1);
+        else
+            reserve(v, v->capacity * 2);
+    }
     v->data[v->size] = x;
     v->size++;
 }
@@ -77,7 +83,7 @@ void popBack(vector *v) {
 
 int *atVector(vector *v, size_t index) {
     if (index >= v->size) {
-        fprintf(stderr, "IndexError: a[%zu] is not exist", index);
+        fprintf(stderr, "IndexError: a[%zu] is missing", index);
         exit(1);
     } else
         return &v->data[index];
