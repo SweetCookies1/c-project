@@ -28,10 +28,10 @@ vector createVector(size_t n) {
 }
 
 void reserve(vector *v, size_t newCapacity) {
-    v->size = (v->size > v->capacity) ? v->capacity : v->size;
+    v->size = (v->size > newCapacity) ? newCapacity : v->size;
     v->capacity = newCapacity;
     v->data = (int *) realloc(v->data, sizeof(int) * newCapacity);
-    if (v->data == NULL && !newCapacity)
+        if (v->data == NULL && newCapacity)
             bad_alloc_happening();
 }
 
