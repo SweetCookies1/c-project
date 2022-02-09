@@ -116,6 +116,12 @@
 		<Unit filename="C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.h">
 			<Option target="data_structures"/>
 		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/voidVector.c">
+			<Option target="data_structures"/>
+		</Unit>
+		<Unit filename="C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/voidVector.h">
+			<Option target="data_structures"/>
+		</Unit>
 		<Unit filename="C:/Users/user/CLionProjects/laba5b/main.c">
 			<Option target="laba5b"/>
 		</Unit>
