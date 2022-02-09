@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/data_structures.dir/vector/vector.c.obj"
-  "CMakeFiles/data_structures.dir/vector/voidVector.c.obj"
   "libdata_structures.a"
   "libdata_structures.pdb"
 )

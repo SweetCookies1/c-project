@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <malloc.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdint.h>
 
@@ -50,11 +49,11 @@ void deleteVector(vector *v) {
     v->capacity = 0;
 }
 
-bool isEmpty(vector *v) {
+int isEmpty(vector *v) {
     return v->size == 0;
 }
 
-bool isFull(vector *v) {
+int isFull(vector *v) {
     return v->size == v->capacity;
 }
 

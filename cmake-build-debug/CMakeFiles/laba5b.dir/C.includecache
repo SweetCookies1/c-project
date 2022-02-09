@@ -7,12 +7,8 @@
 #IncludeRegexTransform: 
 
 C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.h
-stdbool.h
--
 
 C:/Users/user/CLionProjects/laba5b/main.c
-stdio.h
--
 stdlib.h
 -
 stdint.h

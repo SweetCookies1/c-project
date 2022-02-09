@@ -2,8 +2,6 @@
 // Created by user on 05.02.2022.
 //
 
-#include <stdbool.h>
-
 #ifndef LABA5B_VECTOR_H
 #define LABA5B_VECTOR_H
 
@@ -23,9 +21,9 @@ void shrinkToFit(vector *v);
 
 void deleteVector(vector *v);
 
-bool isEmpty(vector *v);
+int isEmpty(vector *v);
 
-bool isFull(vector *v);
+int isFull(vector *v);
 
 int getVectorValue(vector *v, size_t i);
 
