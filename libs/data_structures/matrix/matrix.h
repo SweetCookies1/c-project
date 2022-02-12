@@ -18,6 +18,10 @@ matrix getMemMatrix(int nRows, int nCols);
 
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCows);
 
+void freeMemMatrix(matrix m);
+
+void freeMemMatrices(matrix *ms, int nMatrices);
+
 void inputMatrix(matrix m);
 
 void inputMatrices(matrix *ms, int nMatrices);
@@ -25,6 +29,10 @@ void inputMatrices(matrix *ms, int nMatrices);
 void outputMatrix(matrix m);
 
 void outputMatrices(matrix *ms, int nMatrices);
+
+bool isSquareMatrix(matrix m);
+
+bool twoMatricesEqual(matrix m1, matrix m2);
 
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 

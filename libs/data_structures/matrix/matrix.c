@@ -19,6 +19,18 @@ matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCows) {
     return ms;
 }
 
+void freeMemMatrix(matrix m) {
+    for (int i = 0; i < m.nRows; i++)
+        free(m.values[i]);
+    free(m.values);
+}
+
+void freeMemMatrices(matrix *ms, int nMatrices) {
+    for (int i = 0; i < nMatrices; i++)
+        freeMemMatrix(ms[i]);
+    free(ms);
+}
+
 void inputMatrix(matrix m) {
     for (int i = 0; i < m.nRows; i++)
         for (int j = 0; j < m.nCols; j++)
@@ -41,6 +53,20 @@ void outputMatrix(matrix m) {
 void outputMatrices(matrix *ms, int nMatrices) {
     for (int i = 0; i < nMatrices; i++)
         outputMatrix(ms[i]);
+}
+
+bool isSquareMatrix(matrix m) {
+    return m.nRows == m.nCols;
+}
+
+bool twoMatricesEqual(matrix m1, matrix m2) {
+    if(m1.nRows != m2.nRows || m1.nCols != m2.nCols)
+        return false;
+    for (int i = 0; i < m1.nRows; i++)
+        for(int j = 0; j < m1.nCols; j++)
+            if(m1.values[i][j] != m2.values[i][j])
+                return false;
+    return true;
 }
 
 matrix createMatrixFromArray(const int *a, int nRows, int nCols) {
