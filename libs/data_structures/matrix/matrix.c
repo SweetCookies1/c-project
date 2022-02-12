@@ -61,13 +61,13 @@ bool isSquareMatrix(matrix m) {
 
 void swapRows(matrix m, int i1, int i2) {
     int *t = m.values[i1];
-    m.values[i1] = m.values[i2];
-    m.values[i2] = t;
+    m.values[i1 - 1] = m.values[i2 - 1];
+    m.values[i2 - 1] = t;
 }
 
 void swapColumns(matrix m, int i1, int i2) {
     for (int i = 0; i < m.nRows; i++) {
-        swap(&m.values[i][j1], &m.values[i][j2]);
+        swap(&m.values[i][j1 - 1], &m.values[i][j2 - 1]);
     }
 }
 
