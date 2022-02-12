@@ -2,11 +2,6 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include <stdint.h>
-
-//
-// Created by user on 05.02.2022.
-//
-
 #include "vector.h"
 
 void empty_vector_happening() {

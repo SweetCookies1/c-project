@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <assert.h>
 #include "libs/data_structures/vector/vector.h"
+#include "libs/data_structures/matrix/matrix.h"
 
 vector createFilledVector(size_t size, size_t capacity) { // Создает и заполняет структру (только для тестов)
     int *data = (int *) malloc(sizeof(int) * capacity);
@@ -12,7 +13,6 @@ vector createFilledVector(size_t size, size_t capacity) { // Создает и �
 
 void test_createVector_emptyVector() {
     vector v = createVector(0);
-
     assert(v.size == 0);
     assert(v.capacity == 0);
     assert(v.data == NULL);
@@ -114,9 +114,9 @@ void test_isFull_fullVector() {
     deleteVector(&v);
 }
 
+
 void test_isFull_notFullVector() {
     vector v = createFilledVector(5, 10);
-
     assert(!isFull(&v));
 
     deleteVector(&v);

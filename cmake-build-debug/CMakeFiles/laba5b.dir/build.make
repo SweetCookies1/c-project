@@ -88,6 +88,7 @@ laba5b_EXTERNAL_OBJECTS =
 laba5b.exe: CMakeFiles/laba5b.dir/main.c.obj
 laba5b.exe: CMakeFiles/laba5b.dir/build.make
 laba5b.exe: libs/data_structures/libdata_structures.a
+laba5b.exe: libs/Algorithms/libAlgorithms.a
 laba5b.exe: CMakeFiles/laba5b.dir/linklibs.rsp
 laba5b.exe: CMakeFiles/laba5b.dir/objects1.rsp
 laba5b.exe: CMakeFiles/laba5b.dir/link.txt

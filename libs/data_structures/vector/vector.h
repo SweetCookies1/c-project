@@ -1,7 +1,3 @@
-//
-// Created by user on 05.02.2022.
-//
-
 #ifndef LABA5B_VECTOR_H
 #define LABA5B_VECTOR_H
 

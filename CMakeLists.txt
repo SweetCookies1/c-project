@@ -7,3 +7,4 @@ add_executable(laba5b main.c)
 
 add_subdirectory(libs)
 target_link_libraries(laba5b data_structures)
+target_link_libraries(laba5b Algorithms)

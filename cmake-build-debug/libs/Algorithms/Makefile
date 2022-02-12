@@ -86,14 +86,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\user\CLionProjects\laba5b\cmake-build-debug\CMakeFiles C:\Users\user\CLionProjects\laba5b\cmake-build-debug\\CMakeFiles\progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start C:\Users\user\CLionProjects\laba5b\cmake-build-debug\CMakeFiles C:\Users\user\CLionProjects\laba5b\cmake-build-debug\libs\Algorithms\\CMakeFiles\progress.marks
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 libs/Algorithms/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\user\CLionProjects\laba5b\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 clean
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 libs/Algorithms/clean
 .PHONY : clean
 
 # The main clean target
@@ -102,81 +102,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 preinstall
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 libs/Algorithms/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 preinstall
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 libs/Algorithms/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named laba5b
+# Convenience name for target.
+libs/Algorithms/CMakeFiles/Algorithms.dir/rule:
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 libs/Algorithms/CMakeFiles/Algorithms.dir/rule
+.PHONY : libs/Algorithms/CMakeFiles/Algorithms.dir/rule
 
-# Build rule for target.
-laba5b: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 laba5b
-.PHONY : laba5b
-
-# fast build rule for target.
-laba5b/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\laba5b.dir\build.make CMakeFiles/laba5b.dir/build
-.PHONY : laba5b/fast
-
-#=============================================================================
-# Target rules for targets named data_structures
-
-# Build rule for target.
-data_structures: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 data_structures
-.PHONY : data_structures
-
-# fast build rule for target.
-data_structures/fast:
-	$(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/build
-.PHONY : data_structures/fast
-
-#=============================================================================
-# Target rules for targets named Algorithms
-
-# Build rule for target.
-Algorithms: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Algorithms
+# Convenience name for target.
+Algorithms: libs/Algorithms/CMakeFiles/Algorithms.dir/rule
 .PHONY : Algorithms
 
 # fast build rule for target.
 Algorithms/fast:
-	$(MAKE) $(MAKESILENT) -f libs\Algorithms\CMakeFiles\Algorithms.dir\build.make libs/Algorithms/CMakeFiles/Algorithms.dir/build
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\Algorithms\CMakeFiles\Algorithms.dir\build.make libs/Algorithms/CMakeFiles/Algorithms.dir/build
 .PHONY : Algorithms/fast
 
-main.obj: main.c.obj
-.PHONY : main.obj
+array/array.obj: array/array.c.obj
+.PHONY : array/array.obj
 
 # target to build an object file
-main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\laba5b.dir\build.make CMakeFiles/laba5b.dir/main.c.obj
-.PHONY : main.c.obj
+array/array.c.obj:
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\Algorithms\CMakeFiles\Algorithms.dir\build.make libs/Algorithms/CMakeFiles/Algorithms.dir/array/array.c.obj
+.PHONY : array/array.c.obj
 
-main.i: main.c.i
-.PHONY : main.i
+array/array.i: array/array.c.i
+.PHONY : array/array.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\laba5b.dir\build.make CMakeFiles/laba5b.dir/main.c.i
-.PHONY : main.c.i
+array/array.c.i:
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\Algorithms\CMakeFiles\Algorithms.dir\build.make libs/Algorithms/CMakeFiles/Algorithms.dir/array/array.c.i
+.PHONY : array/array.c.i
 
-main.s: main.c.s
-.PHONY : main.s
+array/array.s: array/array.c.s
+.PHONY : array/array.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\laba5b.dir\build.make CMakeFiles/laba5b.dir/main.c.s
-.PHONY : main.c.s
+array/array.c.s:
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\Algorithms\CMakeFiles\Algorithms.dir\build.make libs/Algorithms/CMakeFiles/Algorithms.dir/array/array.c.s
+.PHONY : array/array.c.s
 
 # Help Target
 help:
@@ -187,11 +162,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Algorithms
-	@echo ... data_structures
-	@echo ... laba5b
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
+	@echo ... array/array.obj
+	@echo ... array/array.i
+	@echo ... array/array.s
 .PHONY : help
 
 
@@ -203,6 +176,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+	cd /d C:\Users\user\CLionProjects\laba5b\cmake-build-debug && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

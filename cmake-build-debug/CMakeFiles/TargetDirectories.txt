@@ -6,3 +6,6 @@ C:/Users/user/CLionProjects/laba5b/cmake-build-debug/libs/CMakeFiles/rebuild_cac
 C:/Users/user/CLionProjects/laba5b/cmake-build-debug/libs/data_structures/CMakeFiles/data_structures.dir
 C:/Users/user/CLionProjects/laba5b/cmake-build-debug/libs/data_structures/CMakeFiles/edit_cache.dir
 C:/Users/user/CLionProjects/laba5b/cmake-build-debug/libs/data_structures/CMakeFiles/rebuild_cache.dir
+C:/Users/user/CLionProjects/laba5b/cmake-build-debug/libs/Algorithms/CMakeFiles/Algorithms.dir
+C:/Users/user/CLionProjects/laba5b/cmake-build-debug/libs/Algorithms/CMakeFiles/edit_cache.dir
+C:/Users/user/CLionProjects/laba5b/cmake-build-debug/libs/Algorithms/CMakeFiles/rebuild_cache.dir
