@@ -59,6 +59,19 @@ bool isSquareMatrix(matrix m) {
     return m.nRows == m.nCols;
 }
 
+void swapRows(matrix m, int i1, int i2) {
+    int *t = m.values[i1];
+    m.values[i1] = m.values[i2];
+    m.values[i2] = t;
+}
+
+void swapColumns(matrix m, int i1, int i2) {
+    for (int i = 0; i < m.nRows; i++) {
+        swap(&m.values[i][j1], &m.values[i][j2]);
+    }
+}
+
+
 bool twoMatricesEqual(matrix m1, matrix m2) {
     if(m1.nRows != m2.nRows || m1.nCols != m2.nCols)
         return false;
