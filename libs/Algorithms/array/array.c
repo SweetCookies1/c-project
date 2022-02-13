@@ -31,6 +31,12 @@ void inputArray_(int *const a, const size_t n) {
         scanf("%d", &a[i]);
 }
 
+void swap(float *a, float *b) {
+    float temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 void outputArray_(const int *const a, const size_t n) {
     for (size_t i = 0; i < n; i++)
         printf("%d ", a[i]);

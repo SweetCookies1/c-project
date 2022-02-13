@@ -152,10 +152,10 @@
 		<Unit filename="C:/Users/user/CLionProjects/laba5b/libs/Algorithms/array/array.h">
 			<Option target="Algorithms"/>
 		</Unit>
-		<Unit filename="C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.c">
+		<Unit filename="C:/Users/user/CLionProjects/laba5b/libs/data_structures/matrix/matrix.c">
 			<Option target="data_structures"/>
 		</Unit>
-		<Unit filename="C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.h">
+		<Unit filename="C:/Users/user/CLionProjects/laba5b/libs/data_structures/matrix/matrix.h">
 			<Option target="data_structures"/>
 		</Unit>
 		<Unit filename="C:/Users/user/CLionProjects/laba5b/main.c">

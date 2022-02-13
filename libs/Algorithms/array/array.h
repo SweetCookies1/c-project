@@ -3,7 +3,8 @@
 
 #include <stddef.h>
 
-//d
+void swap(float *a, float *b);
+
 int compare_ints(const void *a, const void *b);
 
 //сортировка вставкой
