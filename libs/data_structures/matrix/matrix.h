@@ -30,9 +30,21 @@ void outputMatrix(matrix m);
 
 void outputMatrices(matrix *ms, int nMatrices);
 
+void swapRows(matrix m, int i1, int i2);
+
+void swapColumns(matrix m, int j1, int j2);
+
 bool isSquareMatrix(matrix m);
 
 bool twoMatricesEqual(matrix m1, matrix m2);
+
+bool isEMatrix(matrix m);
+
+bool isSymmetricMatrix(matrix m);
+
+position getMinValuePos(matrix m);
+
+position getMaxValuePos(matrix m);
 
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 

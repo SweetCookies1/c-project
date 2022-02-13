@@ -12,6 +12,14 @@ void swap(int *a, int *b) {
     *b = temp;
 }
 
+int *getColumn(matrix m, int j) {
+    int *result = (int *) malloc(m.nRows * sizeof(int));
+    for (int i = 0; i < m.nRows; i++)
+        result[i] = m.values[i][j];
+
+    return result;
+}
+
 matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; i++)
@@ -67,15 +75,16 @@ bool isSquareMatrix(matrix m) {
 }
 
 void swapRows(matrix m, int i1, int i2) {
-    int *t = m.values[i1];
-    m.values[i1 - 1] = m.values[i2 - 1];
-    m.values[i2 - 1] = t;
+    if (i1 == i2)
+        return;
+    swap(m.values[i1], m.values[i2]);
 }
 
 void swapColumns(matrix m, int j1, int j2) {
-    for (int i = 0; i < m.nRows; i++) {
+    if (j1 == j2)
+        return;
+    for (int i = 0; i < m.nRows; i++)
         swap(&m.values[i][j1 - 1], &m.values[i][j2 - 1]);
-    }
 }
 
 bool twoMatricesEqual(matrix m1, matrix m2) {
@@ -160,3 +169,39 @@ matrix *createMatrixArrayOfMatrixFromArray(const int *values, size_t nMatrices, 
 
 }
 
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int)) {
+    int *resultsCriteria = (int *) malloc(m.nRows * sizeof(int));
+    for (int i = 0; i < m.nRows; i++)
+        resultsCriteria[i] = criteria(m.values[i], m.nCols);
+    for (int i = 0; i < m.nRows; i++) {
+        int currentIndex = i;
+        for (int j = i + 1; j < m.nRows; j++)
+            if (resultsCriteria[currentIndex] > resultsCriteria[j])
+                currentIndex = j;
+        if (currentIndex != i) {
+            swapRows(m, i, currentIndex);
+            swap(&resultsCriteria[currentIndex], &resultsCriteria[i]);
+        }
+    }
+    free(resultsCriteria);
+}
+
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
+    int *resultsCriteria = (int *) malloc(m.nCols * sizeof(int));
+    for (int j = 0; j < m.nCols; j++) {
+        int *currentColumn = getColumn(m, j);
+        resultsCriteria[j] = criteria(currentColumn, m.nRows);
+        free(currentColumn);
+    }
+    for (int i = 0; i < m.nCols; i++) {
+        int currentIndex = i;
+        for (int j = i + 1; j < m.nCols; j++)
+            if (resultsCriteria[currentIndex] > resultsCriteria[j])
+                currentIndex = j;
+        if (currentIndex != i) {
+            swapColumns(m, i, currentIndex);
+            swap(&resultsCriteria[currentIndex], &resultsCriteria[i]);
+        }
+    }
+    free(resultsCriteria);
+}
