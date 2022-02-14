@@ -220,7 +220,14 @@ matrix mulMatrices(matrix m1, matrix m2) {
 }
 
 void getSquareOfMatrixIfSymmetric(matrix *m) {
-    if(!isSymmetricMatrix(*m))
+    if (!isSymmetricMatrix(*m))
         return;
     mulMatrices(*m, *m);
 }
+
+bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
+    if (isEMatrix(mulMatrices(m1, m2)))
+        return true;
+    return false;
+}
+
