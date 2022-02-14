@@ -143,7 +143,7 @@ position getMaxValuePos(matrix m) {
 void transposeSquareMatrix(matrix m) {
     assert(isSquareMatrix(m));
     for (int i = 0; i < m.nRows; i++)
-        for (int j = 0; j < m.nCols; j++)
+        for (int j = i + 1; j < m.nCols; j++)
             if (i != j)
                 swap(&m.values[i][j], &m.values[j][i]);
 
@@ -195,7 +195,7 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
         int t = i;
         while (resultsCriteria[t] < resultsCriteria[t - 1] && t > 0) {
             swap(&resultsCriteria[t], &resultsCriteria[t - 1]);
-            swapRows(m, t, t - 1);
+            swapColumns(m, t, t - 1);
             t--;
         }
     }
@@ -203,5 +203,24 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
 }
 
 void swapColsMinAndMaxValue(matrix m) {
-    swapRows(m, getMinValuePos(m).rowIndex, getMaxValuePos(m).rowIndex);
+    swapRows(m, getMinValuePos(m).rowIndex + 1, getMaxValuePos(m).rowIndex + 1);
+}
+
+matrix mulMatrices(matrix m1, matrix m2) {
+    matrix mulMatrix = getMemMatrix(m1.nRows, m2.nCols);
+    for (int i = 0; i < m1.nRows; i++) {
+        for (int j = 0; j < m2.nCols; j++) {
+            mulMatrix.values[i][j] = 0;
+            for (int k = 0; k < m2.nRows; k++) {
+                mulMatrix.values[i][j] += m1.values[i][j] * m2.values[k][j];
+            }
+        }
+    }
+    return (matrix) {mulMatrix.values, m1.nRows, m2.nCols};
+}
+
+void getSquareOfMatrixIfSymmetric(matrix *m) {
+    if(!isSymmetricMatrix(*m))
+        return;
+    mulMatrices(*m, *m);
 }
