@@ -1,4 +1,7 @@
 #include <stdbool.h>
+#include <stdio.h>
+#include <malloc.h>
+#include <assert.h>
 
 #ifndef LABA5B_MATRIX_H
 #define LABA5B_MATRIX_H
@@ -13,6 +16,8 @@ typedef struct position {
     int rowIndex;
     int colIndex;
 } position;
+
+int getSum(int *a, int n);
 
 matrix getMemMatrix(int nRows, int nCols);
 
@@ -49,5 +54,11 @@ position getMaxValuePos(matrix m);
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 
 matrix *createMatrixArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
+
+void transposeSquareMatrix(matrix m);
+
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
+
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int));
 
 #endif //LABA5B_MATRIX_H

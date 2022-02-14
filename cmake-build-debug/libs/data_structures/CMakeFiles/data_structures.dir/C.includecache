@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.c
+C:/Users/user/CLionProjects/laba5b/libs/data_structures/matrix/matrix.c
+matrix.h
+C:/Users/user/CLionProjects/laba5b/libs/data_structures/matrix/matrix.h
+
+C:/Users/user/CLionProjects/laba5b/libs/data_structures/matrix/matrix.h
+stdbool.h
+-
 stdio.h
 -
 malloc.h
 -
-stdlib.h
+assert.h
 -
-stdint.h
--
-vector.h
-C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.h
-
-C:/Users/user/CLionProjects/laba5b/libs/data_structures/vector/vector.h
 
