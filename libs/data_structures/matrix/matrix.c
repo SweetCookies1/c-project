@@ -174,11 +174,11 @@ void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int))
     for (int i = 0; i < m.nRows; i++)
         resultsCriteria[i] = criteria(m.values[i], m.nCols);
     for (int i = 1; i < m.nRows; i++) {
-        int currentIndex = i;
-        while (resultsCriteria[currentIndex] < resultsCriteria[currentIndex - 1] && currentIndex > 0) {
-            swap(&resultsCriteria[currentIndex], &resultsCriteria[currentIndex - 1]);
-            swapRows(m, currentIndex, currentIndex - 1);
-            currentIndex--;
+        int t = i;
+        while (resultsCriteria[t] < resultsCriteria[t - 1] && t > 0) {
+            swap(&resultsCriteria[t], &resultsCriteria[t - 1]);
+            swapRows(m, t, t - 1);
+            t--;
         }
     }
     free(resultsCriteria);
@@ -192,12 +192,16 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
         free(currentColumn);
     }
     for (int i = 1; i < m.nCols; i++) {
-        int currentIndex = i;
-        while (resultsCriteria[currentIndex] < resultsCriteria[currentIndex - 1] && currentIndex > 0) {
-            swap(&resultsCriteria[currentIndex], &resultsCriteria[currentIndex - 1]);
-            swapRows(m, currentIndex, currentIndex - 1);
-            currentIndex--;
+        int t = i;
+        while (resultsCriteria[t] < resultsCriteria[t - 1] && t > 0) {
+            swap(&resultsCriteria[t], &resultsCriteria[t - 1]);
+            swapRows(m, t, t - 1);
+            t--;
         }
     }
     free(resultsCriteria);
+}
+
+void swapColsMinAndMaxValue(matrix m) {
+    swapRows(m, getMinValuePos(m).rowIndex, getMaxValuePos(m).rowIndex);
 }
