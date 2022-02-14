@@ -12,6 +12,22 @@ void swap(int *a, int *b) {
     *b = temp;
 }
 
+int getSum(int *a, int n) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += a[i];
+    }
+    return sum;
+}
+
+bool isUnique(long long *a, int n) {
+    for (int i = 0; i < n; ++i)
+        for (int j = i + 1; j < n; j++)
+            if (a[i] == a[j])
+                return true;
+    return false;
+}
+
 int *getColumn(matrix m, int j) {
     int *result = (int *) malloc(m.nRows * sizeof(int));
     for (int i = 0; i < m.nRows; i++)
@@ -226,8 +242,16 @@ void getSquareOfMatrixIfSymmetric(matrix *m) {
 }
 
 bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
-    if (isEMatrix(mulMatrices(m1, m2)))
-        return true;
-    return false;
+    return isEMatrix(mulMatrices(m1, m2));
+}
+
+void transposeIFMatrixHasEqualSumOfRows(matrix m, int nRows, int nCols) {
+    int *result = (int *) malloc(nRows * sizeof(int));
+    for (int i = 0; i < nRows; i++)
+        result[i] = getSum(m.values[i], nCols);
+    if (isUnique((long long int *) result, nRows))
+        return;
+
+    transposeSquareMatrix(m);
 }
 
