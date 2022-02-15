@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <assert.h>
+#include <stdint.h>
+#include <limits.h>
 
 #ifndef LABA5B_MATRIX_H
 #define LABA5B_MATRIX_H
@@ -35,9 +37,9 @@ void outputMatrix(matrix m);
 
 void outputMatrices(matrix *ms, int nMatrices);
 
-void swapRows(matrix m, int i1, int i2);
+void swapRows(matrix *m, int i1, int i2);
 
-void swapColumns(matrix m, int j1, int j2);
+void swapColumns(matrix *m, int j1, int j2);
 
 bool isSquareMatrix(matrix m);
 
@@ -55,10 +57,10 @@ matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 
 matrix *createMatrixArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
 
-void transposeSquareMatrix(matrix m);
+void transposeSquareMatrix(matrix *m);
 
-void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
+void insertionSortRowsMatrixByRowCriteria(matrix *m, int (*criteria)(int *, int));
 
-void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int));
+void insertionSortColsMatrixByColCriteria(matrix *m, int (*criteria)(int *, int));
 
 #endif //LABA5B_MATRIX_H
