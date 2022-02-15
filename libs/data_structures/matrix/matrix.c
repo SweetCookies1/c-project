@@ -2,7 +2,7 @@
 
 //
 
-int getMin(const int *a, const size_t n) {
+int getMin(int *a, const size_t n) {
     int min = a[0];
     for (size_t i = 1; i < n; i++)
         if (min > a[i])
@@ -10,7 +10,7 @@ int getMin(const int *a, const size_t n) {
     return min;
 }
 
-int getMax(const int *a, const size_t n) {
+int getMax(int *a, const size_t n) {
     int max = a[0];
     for (size_t i = 1; i < n; i++)
         if (max < a[i])
@@ -130,7 +130,7 @@ void swapColumns(matrix m, int j1, int j2) {
         swap(&m.values[i][j1 - 1], &m.values[i][j2 - 1]);
 }
 
-bool twoMatricesEqual(matrix m1, matrix m2) {
+bool areTwoMatricesEqual(matrix m1, matrix m2) {
     if (m1.nRows != m2.nRows || m1.nCols != m2.nCols)
         return false;
     for (int i = 0; i < m1.nRows; i++)
@@ -262,11 +262,11 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
     return isEMatrix(mulMatrices(m1, m2));
 }
 
-void transposeIFMatrixHasEqualSumOfRows(matrix *m, int nRows, int nCols) {
-    long long *result = (long long *) malloc(nRows * sizeof(long long));
-    for (int i = 0; i < nRows; i++)
-        result[i] = getSum(m->values[i], nCols);
-    if (!isUnique(result, nRows))
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
+    long long *result = (long long *) malloc(m->nRows * sizeof(long long));
+    for (int i = 0; i < m->nRows; i++)
+        result[i] = getSum(m->values[i], m->nCols);
+    if (!isUnique(result, m->nRows))
         transposeSquareMatrix(*m);
 }
 
@@ -276,4 +276,24 @@ void sortRowsByMaxElement(matrix m) {
 
 void sortColsByMinElement(matrix m) {
     insertionSortColsMatrixByColCriteria(m, (int (*)(int *, int)) getMin);
+}
+
+int getMinInArea(matrix m) {
+    position maxValue = getMaxValuePos(m);
+    int minValue = m.values[maxValue.rowIndex][maxValue.colIndex];
+    int iColumn = maxValue.rowIndex - 1;
+    int leftBorder = maxValue.rowIndex - 1;
+    int rightBorder = maxValue.colIndex + 1;
+    while(iColumn >= 0) {
+        for (int i = leftBorder; i < rightBorder; i++) {
+            if (minValue < m.values[iColumn][i])
+                minValue = m.values[iColumn][i];
+        }
+        if(leftBorder > 0)
+            leftBorder--;
+        if(rightBorder < m.nCols)
+            rightBorder++;
+        iColumn--;
+    }
+    return minValue;
 }
