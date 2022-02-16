@@ -3,5 +3,4 @@
 
 CMakeFiles/laba5b.dir/main.c.obj: \
  ../libs/data_structures/matrix/matrix.h \
- ../libs/data_structures/vector/vector.h \
  ../main.c

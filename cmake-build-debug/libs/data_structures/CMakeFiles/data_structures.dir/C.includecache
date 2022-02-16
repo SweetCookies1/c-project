@@ -19,4 +19,10 @@ malloc.h
 -
 assert.h
 -
+stdint.h
+-
+limits.h
+-
+string.h
+-
 

@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <stdint.h>
 #include <limits.h>
+#include <string.h>
 
 #ifndef LABA5B_MATRIX_H
 #define LABA5B_MATRIX_H
@@ -37,9 +38,9 @@ void outputMatrix(matrix m);
 
 void outputMatrices(matrix *ms, int nMatrices);
 
-void swapRows(matrix *m, int i1, int i2);
+void swapRows(matrix m, int i1, int i2);
 
-void swapColumns(matrix *m, int j1, int j2);
+void swapColumns(matrix m, int j1, int j2);
 
 bool isSquareMatrix(matrix m);
 
@@ -57,10 +58,28 @@ matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 
 matrix *createMatrixArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
 
-void transposeSquareMatrix(matrix *m);
+void transposeSquareMatrix(matrix m);
 
-void insertionSortRowsMatrixByRowCriteria(matrix *m, int (*criteria)(int *, int));
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
 
-void insertionSortColsMatrixByColCriteria(matrix *m, int (*criteria)(int *, int));
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int));
+
+void swapColsMinAndMaxValue(matrix m);
+
+void sortColsByMinElement(matrix m);
+
+void sortRowsByMaxElement(matrix m);
+
+void getSquareOfMatrixIfSymmetric(matrix *m);
+
+bool isMutuallyInverseMatrices(matrix m1, matrix m2);
+
+matrix mulMatrices(matrix m1, matrix m2);
+
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m);
+
+int getMinInArea(matrix m);
+
+int findSumMaxesOfPseudoDiagonal(matrix m);
 
 #endif //LABA5B_MATRIX_H

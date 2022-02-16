@@ -1,6 +1,13 @@
 #include "matrix.h"
 
-#define INITIAL_MAX  -INT_MAX
+#define IS_NOT_SQUARE_MATRIX throw_exception("matrix is not square")
+#define MATRIX_MUL_ERROR throw_exception("first matrix with not equal second matrix height")
+#define BAD_ALLOC_CHECK(mem) if(mem == NULL) throw_exception("bad alloc")
+
+static inline void throw_exception(const char *msg) {
+    fprintf(stderr, "%s\n", msg);
+    exit(1);
+}
 
 int getMin(int *a, int n) {
     int min = a[0];
@@ -41,29 +48,35 @@ void swap(int *a, int *b) {
 }
 
 matrix mulMatrices(matrix m1, matrix m2) {
-    matrix mulMatrix = getMemMatrix(m1.nRows, m2.nCols);
+    if (m1.nCols != m2.nRows)
+        MATRIX_MUL_ERROR;
+    matrix result = getMemMatrix(m1.nRows, m2.nCols);
     for (int i = 0; i < m1.nRows; i++) {
         for (int j = 0; j < m2.nCols; j++) {
-            mulMatrix.values[i][j] = 0;
-            for (int k = 0; k < m2.nRows; k++) {
-                mulMatrix.values[i][j] += m1.values[i][j] * m2.values[k][j];
+            result.values[i][j] = 0;
+            for (int k = 0; k < m1.nCols; k++) {
+                result.values[i][j] += m1.values[i][k] * m2.values[k][j];
             }
         }
     }
-    return (matrix) {mulMatrix.values, m1.nRows, m2.nCols};
+    return result;
 }
 
 //
 
 matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int *) * nRows);
-    for (int i = 0; i < nRows; i++)
+    BAD_ALLOC_CHECK(values);
+    for (int i = 0; i < nRows; i++) {
         values[i] = (int *) malloc(sizeof(int) * nCols);
+        BAD_ALLOC_CHECK(values[i]);
+    }
     return (matrix) {values, nRows, nCols};
 }
 
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCows) {
     matrix *ms = (matrix *) malloc(sizeof(matrix) * nMatrices);
+    BAD_ALLOC_CHECK(ms);
     for (int i = 0; i < nMatrices; i++)
         ms[i] = getMemMatrix(nRows, nCows);
     return ms;
@@ -104,24 +117,27 @@ void outputMatrices(matrix *ms, int nMatrices) {
         outputMatrix(ms[i]);
 }
 
-void swapRows(matrix *m, int i1, int i2) {
+void swapRows(matrix m, int i1, int i2) {
     if (i1 == i2)
         return;
-    swap(m->values[i1 - 1], m->values[i2 - 1]);
+    swap((int *) &m.values[i1], (int *) &m.values[i2]);
 }
 
-void swapColumns(matrix *m, int j1, int j2) {
+void swapColumns(matrix m, int j1, int j2) {
     if (j1 == j2)
         return;
-    for (int i = 0; i < m->nRows; i++)
-        swap(&m->values[i][j1 - 1], &m->values[i][j2 - 1]);
+    for (int i = 0; i < m.nRows; i++)
+        swap(&m.values[i][j1], &m.values[i][j2]);
 }
 
-void insertionSortRowsMatrixByRowCriteria(matrix *m, int (*criteria)(int *, int)) {
-    int *resCriteria = (int *) malloc(m->nRows * sizeof(int));
-    for (int i = 0; i < m->nRows; i++)
-        resCriteria[i] = criteria(m->values[i], m->nCols);
-    for (int i = 1; i < m->nRows; i++) {
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int)) {
+    int *resCriteria = (int *) malloc(m.nRows * sizeof(int));
+    BAD_ALLOC_CHECK(resCriteria);
+
+    for (int i = 0; i < m.nRows; i++)
+        resCriteria[i] = criteria(m.values[i], m.nCols);
+
+    for (int i = 1; i < m.nRows; i++) {
         int t = i;
         while (resCriteria[t] < resCriteria[t - 1] && t > 0) {
             swap(&resCriteria[t], &resCriteria[t - 1]);
@@ -132,17 +148,21 @@ void insertionSortRowsMatrixByRowCriteria(matrix *m, int (*criteria)(int *, int)
     free(resCriteria);
 }
 
-void insertionSortColsMatrixByColCriteria(matrix *m, int (*criteria)(int *, int)) {
-    int *resCriteria = (int *) malloc(m->nCols * sizeof(int));
-    for (int i = 0; i < m->nCols; i++) {
-        int *currentColumn = (int *) malloc(sizeof(int) * m->nRows);
-        for (int j = 0; j < m->nRows; j++) {
-            currentColumn[j] = m->values[j][i];
+void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
+    int *resCriteria = (int *) malloc(m.nCols * sizeof(int));
+    BAD_ALLOC_CHECK(resCriteria);
+
+    for (int i = 0; i < m.nCols; i++) {
+        int *currentColumn = (int *) malloc(sizeof(int) * m.nRows);
+        BAD_ALLOC_CHECK(currentColumn);
+
+        for (int j = 0; j < m.nRows; j++) {
+            currentColumn[j] = m.values[j][i];
         }
-        resCriteria[i] = criteria(currentColumn, m->nRows);
+        resCriteria[i] = criteria(currentColumn, m.nRows);
         free(currentColumn);
     }
-    for (int i = 1; i < m->nCols; i++) {
+    for (int i = 1; i < m.nCols; i++) {
         int t = i;
         while (resCriteria[t] < resCriteria[t - 1] && t > 0) {
             swap(&resCriteria[t], &resCriteria[t - 1]);
@@ -153,7 +173,7 @@ void insertionSortColsMatrixByColCriteria(matrix *m, int (*criteria)(int *, int)
     free(resCriteria);
 }
 
-bool areTwoMatricesEqual(matrix m1, matrix m2) {
+bool twoMatricesEqual(matrix m1, matrix m2) {
     if (m1.nRows != m2.nRows || m1.nCols != m2.nCols)
         return false;
     for (int i = 0; i < m1.nRows; i++)
@@ -187,12 +207,13 @@ bool isSymmetricMatrix(matrix m) {
     return true;
 }
 
-void transposeSquareMatrix(matrix *m) {
-    assert(isSquareMatrix(*m));
-    for (int i = 0; i < m->nRows; i++)
-        for (int j = i + 1; j < m->nCols; j++)
-            if (i != j)
-                swap(&m->values[i][j], &m->values[j][i]);
+void transposeSquareMatrix(matrix m) {
+    if (!isSquareMatrix(m)) {
+        IS_NOT_SQUARE_MATRIX;
+    }
+    for (int i = 0; i < m.nRows; i++)
+        for (int j = i + 1; j < m.nCols; j++)
+            swap(&m.values[i][j], &m.values[j][i]);
 }
 
 position getMinValuePos(matrix m) {
@@ -238,16 +259,14 @@ matrix *createMatrixArrayOfMatrixFromArray(const int *values, size_t nMatrices, 
 
 //
 
-void swapColsMinAndMaxValue(matrix *m) {
-    swapRows(m, getMinValuePos(*m).rowIndex, getMaxValuePos(*m).rowIndex);
+void swapColsMinAndMaxValue(matrix m) {
+    swapRows(m, getMinValuePos(m).rowIndex, getMaxValuePos(m).rowIndex);
 }
 
 void getSquareOfMatrixIfSymmetric(matrix *m) {
-    if (isSymmetricMatrix(*m)) {
-        matrix mulResult = mulMatrices(*m, *m);
-        freeMemMatrix(*m);
-        *m = mulResult;
-    }
+    if (!isSymmetricMatrix(*m))
+        return;
+    *m = mulMatrices(*m, *m);;
 }
 
 bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
@@ -256,45 +275,56 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
 
 void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
     long long *result = (long long *) malloc(m->nRows * sizeof(long long));
+    BAD_ALLOC_CHECK(result);
     for (int i = 0; i < m->nRows; i++)
         result[i] = getSum(m->values[i], m->nCols);
     if (!isUnique(result, m->nRows))
-        transposeSquareMatrix(m);
+        transposeSquareMatrix(*m);
 }
 
-void sortRowsByMaxElement(matrix *m) {
+void sortRowsByMaxElement(matrix m) {
     insertionSortRowsMatrixByRowCriteria(m, getMax);
 }
 
-void sortColsByMinElement(matrix *m) {
+void sortColsByMinElement(matrix m) {
     insertionSortColsMatrixByColCriteria(m, getMin);
 }
 
-int sumOfMaxValuesPseudoDiagonal(matrix m) {
-    int countMaxElement = m.nRows + m.nCols - 1;
-    int *arrayMaxValues = (int *) malloc(countMaxElement * sizeof(int));
-    for (int i = 0; i < countMaxElement; i++)
-        arrayMaxValues[i] = INITIAL_MAX;
-    for (int i = 0; i < m.nRows; i++)
-        for (int j = 0; j < m.nCols; j++) {
-            int currentIndex = m.nRows - i + j - 1;
-            if (arrayMaxValues[currentIndex] < m.values[i][j])
-                arrayMaxValues[currentIndex] = m.values[i][j];
+int findMaxOfDiagonal(matrix m, size_t indexRow, size_t indexCol) {
+    int max = m.values[indexRow][indexCol];
+    while (indexRow < m.nRows && indexCol < m.nCols) {
+        if (m.values[indexRow][indexCol] > max) {
+            max = m.values[indexRow][indexCol];
         }
-    return getSum(arrayMaxValues, countMaxElement) - arrayMaxValues[m.nRows - 1];
+        indexCol++;
+        indexRow++;
+    }
+
+    return max;
 }
 
+int findSumMaxesOfPseudoDiagonal(matrix m) {
+    int sumValue = 0;
+    for (size_t iDisplace = 1; iDisplace < m.nCols; iDisplace++)
+        sumValue += findMaxOfDiagonal(m, 0, iDisplace);
+    for (size_t jDisplace = m.nRows - 1; jDisplace > 0; jDisplace--)
+        sumValue += findMaxOfDiagonal(m, jDisplace, 0);
+
+    return sumValue;
+}
+
+// ex_8
 int getMinInArea(matrix m) {
     position maxValue = getMaxValuePos(m);
-    int minValue = m.values[maxValue.rowIndex][maxValue.colIndex];
-    int iColumn = maxValue.rowIndex - 1;
-    int leftBorder = maxValue.rowIndex - 1;
-    int rightBorder = maxValue.colIndex + 1;
+    int iColumn = maxValue.rowIndex;
+    int leftBorder = maxValue.colIndex;
+    int rightBorder = maxValue.colIndex - 1;
+    int minValue = m.values[iColumn][maxValue.colIndex];
     while (iColumn >= 0) {
-        for (int i = leftBorder; i < rightBorder; i++) {
-            if (minValue < m.values[iColumn][i])
+        for (int i = leftBorder; i <= rightBorder; i++)
+            if (minValue > m.values[iColumn][i])
                 minValue = m.values[iColumn][i];
-        }
+
         if (leftBorder > 0)
             leftBorder--;
         if (rightBorder < m.nCols)
