@@ -5,6 +5,9 @@
 #include <stdint.h>
 #include <limits.h>
 #include <string.h>
+#include <memory.h>
+#include <math.h>
+
 
 #ifndef LABA5B_MATRIX_H
 #define LABA5B_MATRIX_H
@@ -27,6 +30,8 @@ matrix getMemMatrix(int nRows, int nCols);
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCows);
 
 void freeMemMatrix(matrix m);
+
+matrix getMemMatrix1(int nRows, int nCols);
 
 void freeMemMatrices(matrix *ms, int nMatrices);
 

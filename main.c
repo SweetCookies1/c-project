@@ -22,6 +22,8 @@ void test_swapRows1() {
     assert(twoMatricesEqual(testMatrix, expectedMatrix));
 }
 
+
+
 void test_swapRows2() {
     matrix testMatrix = createMatrixFromArray(
             (int[]) {

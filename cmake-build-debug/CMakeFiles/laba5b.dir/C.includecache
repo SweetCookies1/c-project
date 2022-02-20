@@ -21,6 +21,8 @@ limits.h
 -
 string.h
 -
+memory.h
+-
 
 C:/Users/user/CLionProjects/laba5b/main.c
 assert.h
