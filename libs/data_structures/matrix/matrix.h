@@ -87,4 +87,8 @@ int getMinInArea(matrix m);
 
 int findSumMaxesOfPseudoDiagonal(matrix m);
 
+void sortByDistances(matrix m);
+
+int countEqClassesByRowsSum(matrix m);
+
 #endif //LABA5B_MATRIX_H

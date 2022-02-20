@@ -11,11 +11,10 @@ static inline void throw_exception(const char *msg) {
 
 float getDistance(int *a, int n) {
     int sum = 0;
-    for(int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
         sum += a[i] * a[i];
     return sqrt(sum);
 }
-
 
 int getMin(int *a, int n) {
     int min = a[0];
@@ -39,6 +38,14 @@ int getSum(int *a, int n) {
         sum += a[i];
     }
     return sum;
+}
+
+int countNUnique(long long *a, int n) {
+    int res = 0;
+    for (int i = 0; i < n; ++i)
+        for (int j = i + 1; j < n; j++)
+            res = (a[i] == a[j]);
+    return res;
 }
 
 bool isUnique(long long *a, int n) {
@@ -389,4 +396,15 @@ int getMinInArea(matrix m) {
 
 void sortByDistances(matrix m) {
     insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}
+
+int countEqClassesByRowsSum(matrix m) {
+    long long *sum = malloc(sizeof(long long) * m.nRows);
+    for (int i = 0; i < m.nRows; i++)
+        sum[i] = getSum(m.values[i], m.nCols);
+
+    int res = countNUnique(sum, m.nRows);
+    free(sum);
+
+    return res;
 }
