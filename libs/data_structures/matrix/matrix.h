@@ -25,6 +25,22 @@ typedef struct position {
 
 int getSum(int *a, int n);
 
+float getDistance(int *a, int n);
+
+int getMin(int *a, int n);
+
+int getMax(int *a, int n);
+
+int countNUnique(long long *a, int n);
+
+bool isUnique(long long *a, int n);
+
+void swap(int *a, int *b);
+
+void swapf(float *a, float *b);
+
+matrix mulMatrices(matrix m1, matrix m2);
+
 matrix getMemMatrix(int nRows, int nCols);
 
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCows);
@@ -90,5 +106,25 @@ int findSumMaxesOfPseudoDiagonal(matrix m);
 void sortByDistances(matrix m);
 
 int countEqClassesByRowsSum(matrix m);
+
+int getNSpecialElement(matrix m);
+
+void swapPenultimateRow(matrix m);
+
+int countValues(const int *a, int n, int value);
+
+int countZeroRows(matrix m);
+
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix);
+
+bool isNonDescendingSorted(int *a, int n);
+
+bool hasAllNonDescendingRows(matrix m);
+
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix);
+
+int normMaxInMatrix(matrix m);
+
+void printMatrixWithMinNorm(matrix *ms, int nMatrix);
 
 #endif //LABA5B_MATRIX_H

@@ -23,6 +23,8 @@ string.h
 -
 memory.h
 -
+math.h
+-
 
 C:/Users/user/CLionProjects/laba5b/main.c
 assert.h

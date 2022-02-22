@@ -23,7 +23,6 @@ void test_swapRows1() {
 }
 
 
-
 void test_swapRows2() {
     matrix testMatrix = createMatrixFromArray(
             (int[]) {
@@ -484,8 +483,8 @@ void test_getSquareMatrixIfSymmetric() {
     matrix expectedMatrix = createMatrixFromArray(
             (int[]) {
                     134, 80, 85,
-                    80,	59,	80,
-                    85,	80,	134
+                    80, 59, 80,
+                    85, 80, 134
             },
             3, 3);
 
@@ -517,7 +516,7 @@ void test_transposeIfMatrixHasNotEqualSumOfRows() {
 void test_isMutuallyInverseMatrices() {
     matrix testMatrix = createMatrixFromArray(
             (int[]) {
-                    2,  5, 7,
+                    2, 5, 7,
                     6, 3, 4,
                     5, -2, -3
             },
@@ -603,6 +602,114 @@ void test_getMinInArea() {
     assert(0 == res);
 }
 
+void test_sortByDistances() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3, 4,
+                    0, 0, 0, 1,
+                    4, 3, 1, 3
+            },
+            3, 4);
+    matrix expectedMatrix = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0, 1,
+                    1, 2, 3, 4,
+                    4, 3, 1, 3
+            },
+            3, 4);
+
+    sortByDistances(testMatrix);
+    assert(twoMatricesEqual(testMatrix, expectedMatrix));
+}
+
+void test_countEqClassesByRowsSum() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    4, 1,
+                    5, 2,
+                    0, 5,
+                    3, 3,
+                    1, 4,
+                    4, 9
+            },
+            6, 2);
+    int res = countEqClassesByRowsSum(testMatrix);
+    assert(3 == res);
+}
+
+void test_getNSpecialElement() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5, 4,
+                    2, 3, 6, 7,
+                    12, 2, 1, 2
+            },
+            3, 4);
+    int res = getNSpecialElement(testMatrix);
+    assert(2 == res);
+}
+
+void test_swapPenultimateRow() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    0, 9, 10,
+                    4, 3, 1
+            },
+            3, 3);
+    matrix expectedMatrix = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    1, 0, 4,
+                    4, 3, 1
+            },
+            3, 3);
+
+    swapPenultimateRow(testMatrix);
+    assert(twoMatricesEqual(testMatrix, expectedMatrix));
+}
+
+void test_countNonDescendingRowsMatrices() {
+    matrix *testMatrices = createMatrixArrayOfMatrixFromArray(
+            (int[]) {
+                    2, 5, 8,
+                    3, 3, 3,
+
+                    7, 7, 9,
+                    1, 0, -1,
+
+                    0, 0, 0,
+                    0, 0, 0
+            },
+            3, 2, 3);
+    int res = countNonDescendingRowsMatrices(testMatrices, 3);
+    assert(2 == res);
+}
+
+void test_countZeroRows() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0, 0,
+                    2, 3, 6, 7,
+                    0, 0, 0, 0
+            },
+            3, 4);
+    int res = countZeroRows(testMatrix);
+    assert(2 == res);
+}
+
+void test_normMaxInMatrix() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    50, 6, 7, 10,
+                    2, 3, 6, 7,
+                    0, -100, 0, 20
+            },
+            3, 4);
+    int res = normMaxInMatrix(testMatrix);
+    assert(100 == res);
+}
+
 void test_matrix() {
 
     test_swapRows();
@@ -626,6 +733,15 @@ void test_matrix() {
     test_sortRowsByMaxElement();
     test_sumOfMaxValuesPseudoDiagonal();
     test_getMinInArea();
+    test_sortByDistances();
+    test_countEqClassesByRowsSum();
+    //test_getNSpecialElement();
+    //test_swapPenultimateRow();
+    test_countNonDescendingRowsMatrices();
+    test_countZeroRows(); // тест промежуточной функции
+    test_normMaxInMatrix(); // тест промежуточной функции
+
+
 }
 
 int main() {

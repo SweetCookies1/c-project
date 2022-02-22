@@ -46,9 +46,9 @@ int getSum(int *a, int n) {
 
 int countNUnique(long long *a, int n) {
     int res = 0;
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < n; i++)
         for (int j = i + 1; j < n; j++)
-            res = (a[i] == a[j]);
+            res += (a[i] == a[j]);
     return res;
 }
 
@@ -413,7 +413,7 @@ int countEqClassesByRowsSum(matrix m) {
     return res;
 }
 
-int getSpecialElement(matrix m) {
+int getNSpecialElement(matrix m) {
     int *sum = malloc(sizeof(int) * m.nRows);
     int *columns = malloc(sizeof(int) * m.nRows);
 
@@ -423,10 +423,12 @@ int getSpecialElement(matrix m) {
             sum[i] = getSum(columns, m.nRows);
         }
     int count = 0;
-    for (int i = 0; i < m.nRows; i++)
-        for (int j = 0; j < m.nCols; j++)
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = 0; j < m.nCols; j++) {
             if (m.values[i][j] > sum[i] - m.values[i][j])
                 count++;
+        }
+    }
 
     free(columns);
     free(sum);
@@ -456,6 +458,7 @@ int countZeroRows(matrix m) {
 
 void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
     int *msMaxZeroRowsMatrices = malloc(sizeof(int) * nMatrix);
+    BAD_ALLOC_CHECK(msMaxZeroRowsMatrices);
     int max = 0;
     for (int i = 0; i < nMatrix; i++) {
         msMaxZeroRowsMatrices[i] = countZeroRows(ms[i]);
@@ -491,10 +494,10 @@ int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
 }
 
 int normMaxInMatrix(matrix m) {
-    int normMax = 0;
-    for (int i = 0; i < m.nCols; i++)
-        for (int j = 0; j < m.nRows; j++)
-            normMax = max2(normMax, m.values[i][j]);
+    position minPos = getMinValuePos(m);
+    position maxPos = getMaxValuePos(m);
+    int normMax = max2(abs(m.values[maxPos.rowIndex][maxPos.colIndex]),
+                       abs(m.values[minPos.rowIndex][minPos.colIndex]));
     return normMax;
 }
 
@@ -506,7 +509,8 @@ void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
         msNorm[i] = normMaxInMatrix(ms[i]);
 
     int min = getMin(msNorm, nMatrix);
-    for(int i = 0; i < nMatrix; i++)
+    for (int i = 0; i < nMatrix; i++)
         if (msNorm[i] == min)
             outputMatrix(ms[i]);
+    free(msNorm);
 }
