@@ -420,12 +420,18 @@ int getSpecialElement(matrix m) {
         }
     int count = 0;
     for (int i = 0; i < m.nRows; i++)
-        for(int j = 0; j < m.nCols; j++)
-            if(m.values[i][j] > sum[i] - m.values[i][j])
+        for (int j = 0; j < m.nCols; j++)
+            if (m.values[i][j] > sum[i] - m.values[i][j])
                 count++;
 
     free(columns);
     free(sum);
 
     return count;
+}
+
+void swapPenultimateRow(matrix m) {
+    int minElementInCols = getMinValuePos(m).colIndex;
+    for (int i = m.nRows - 1; i >= 0; i++)
+        m.values[m.nRows - 2][i] = m.values[i][minElementInCols];
 }
