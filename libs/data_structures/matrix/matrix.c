@@ -489,3 +489,24 @@ int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
         count += hasAllNonDescendingRows(ms[i]);
     return count;
 }
+
+int normMaxInMatrix(matrix m) {
+    int normMax = 0;
+    for (int i = 0; i < m.nCols; i++)
+        for (int j = 0; j < m.nRows; j++)
+            normMax = max2(normMax, m.values[i][j]);
+    return normMax;
+}
+
+void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
+    int *msNorm = malloc(sizeof(int) * nMatrix);
+    BAD_ALLOC_CHECK(msNorm);
+
+    for (int i = 0; i < nMatrix; i++)
+        msNorm[i] = normMaxInMatrix(ms[i]);
+
+    int min = getMin(msNorm, nMatrix);
+    for(int i = 0; i < nMatrix; i++)
+        if (msNorm[i] == min)
+            outputMatrix(ms[i]);
+}
