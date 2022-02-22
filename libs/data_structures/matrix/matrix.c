@@ -354,28 +354,28 @@ void sortColsByMinElement(matrix m) {
     insertionSortColsMatrixByColCriteria(m, getMin);
 }
 
-//TODO переделать функцию
-int findMaxOfDiagonal(matrix m, size_t indexRow, size_t indexCol) {
-    int max = m.values[indexRow][indexCol];
-    while (indexRow < m.nRows && indexCol < m.nCols) {
-        if (m.values[indexRow][indexCol] > max) {
-            max = m.values[indexRow][indexCol];
-        }
-        indexCol++;
-        indexRow++;
-    }
-
-    return max;
-}
-
 int findSumMaxesOfPseudoDiagonal(matrix m) {
-    int sumValue = 0;
-    for (size_t iDisplace = 1; iDisplace < m.nCols; iDisplace++)
-        sumValue += findMaxOfDiagonal(m, 0, iDisplace);
-    for (size_t jDisplace = m.nRows - 1; jDisplace > 0; jDisplace--)
-        sumValue += findMaxOfDiagonal(m, jDisplace, 0);
+    int sum = 0;
 
-    return sumValue;
+    int rows = m.nRows;
+    int cols = m.nCols;
+    for (int i = 1; i < rows; ++i) {
+        int j = 0;
+        int k = i;
+        int max = m.values[k][j];
+        while (j < cols && k < rows)
+            max = max2(max, m.values[k++][j++]);
+        sum += max;
+    }
+    for (int j = 1; j < cols; ++j) {
+        int i = 0;
+        int k = j;
+        int max = m.values[i][k];
+        while (i < rows && k < cols)
+            max = max2(max, m.values[i++][k++]);
+        sum += max;
+    }
+    return sum;
 }
 
 int getMinInArea(matrix m) {
@@ -413,33 +413,45 @@ int countEqClassesByRowsSum(matrix m) {
     return res;
 }
 
-int getNSpecialElement(matrix m) {
-    int *sum = malloc(sizeof(int) * m.nRows);
-    int *columns = malloc(sizeof(int) * m.nRows);
-
-    for (int i = 0; i < m.nCols; i++)
-        for (int j = 0; j < m.nRows; j++) {
-            columns[j] = m.values[j][i];
-            sum[i] = getSum(columns, m.nRows);
-        }
+int getNSpecialElement(const matrix m) {
     int count = 0;
-    for (int i = 0; i < m.nRows; i++) {
-        for (int j = 0; j < m.nCols; j++) {
-            if (m.values[i][j] > sum[i] - m.values[i][j])
+    for (int i = 0; i < m.nCols; i++) {
+        int curSum = 0;
+        for (int j = 0; j < m.nRows; j++)
+            curSum += m.values[j][i];
+        for (int j = 0; j < m.nRows; j++)
+            if (curSum - m.values[j][i] < m.values[j][i])
                 count++;
-        }
     }
-
-    free(columns);
-    free(sum);
-
     return count;
 }
 
+position getLeftMin(const matrix m) {
+    position minPos = (position) {0, 0};
+
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = 0; j < m.nCols; j++) {
+            int min = m.values[minPos.rowIndex][minPos.colIndex];
+            if (j < minPos.colIndex && m.values[i][j] == min || m.values[i][j] < min)
+                minPos = (position) {i, j};
+        }
+    }
+    return minPos;
+}
+
 void swapPenultimateRow(matrix m) {
-    int minElementInCols = getMinValuePos(m).colIndex;
-    for (int i = m.nRows - 1; i >= 0; i++)
-        m.values[m.nRows - 2][i] = m.values[i][minElementInCols];
+    int minColIndex = getLeftMin(m).colIndex;
+    int rows = m.nRows;
+    int penultimateRow = m.nRows - 2;
+
+    int *minCol = (int *) malloc(sizeof(int) * rows);
+    BAD_ALLOC_CHECK(minCol);
+
+    for (int i = 0; i < rows; ++i)
+        minCol[i] = m.values[i][minColIndex];
+
+    memcpy(m.values[penultimateRow], minCol, sizeof(int) * m.nCols);
+    free(minCol);
 }
 
 int countValues(const int *a, int n, int value) {

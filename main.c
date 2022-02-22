@@ -735,12 +735,11 @@ void test_matrix() {
     test_getMinInArea();
     test_sortByDistances();
     test_countEqClassesByRowsSum();
-    //test_getNSpecialElement();
-    //test_swapPenultimateRow();
+    test_getNSpecialElement();
+    test_swapPenultimateRow();
     test_countNonDescendingRowsMatrices();
     test_countZeroRows(); // тест промежуточной функции
     test_normMaxInMatrix(); // тест промежуточной функции
-
 
 }
 
