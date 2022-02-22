@@ -467,3 +467,25 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
 
     free(msMaxZeroRowsMatrices);
 }
+
+bool isNonDescendingSorted(int *a, int n) {
+    for (int i = 1; i < n; i++)
+        if (a[i] < a[i - 1])
+            return false;
+    return true;
+}
+
+bool hasAllNonDescendingRows(matrix m) {
+    for (int i = 0; i < m.nRows; i++)
+        if (!isNonDescendingSorted(m.values[i], m.nCols))
+            return false;
+    return true;
+
+}
+
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
+    int count = 0;
+    for (int i = 0; i < nMatrix; i++)
+        count += hasAllNonDescendingRows(ms[i]);
+    return count;
+}
