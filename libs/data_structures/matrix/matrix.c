@@ -9,6 +9,10 @@ static inline void throw_exception(const char *msg) {
     exit(1);
 }
 
+int max2(int a, int b) {
+    return a > b ? a : b;
+}
+
 float getDistance(int *a, int n) {
     int sum = 0;
     for (int i = 0; i < n; i++)
@@ -434,4 +438,32 @@ void swapPenultimateRow(matrix m) {
     int minElementInCols = getMinValuePos(m).colIndex;
     for (int i = m.nRows - 1; i >= 0; i++)
         m.values[m.nRows - 2][i] = m.values[i][minElementInCols];
+}
+
+int countValues(const int *a, int n, int value) {
+    int count = 0;
+    for (int i = 0; i < n; i++)
+        count += a[i] == value;
+    return count;
+}
+
+int countZeroRows(matrix m) {
+    int count = 0;
+    for (int i = 0; i < m.nRows; i++)
+        count += countValues(m.values[i], m.nCols, 0) == m.nCols;
+    return count;
+}
+
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
+    int *msMaxZeroRowsMatrices = malloc(sizeof(int) * nMatrix);
+    int max = 0;
+    for (int i = 0; i < nMatrix; i++) {
+        msMaxZeroRowsMatrices[i] = countZeroRows(ms[i]);
+        max = max2(max, countZeroRows(ms[i]));
+    }
+    for (int i = 0; i < nMatrix; i++)
+        if (msMaxZeroRowsMatrices[i] == max)
+            outputMatrix(ms[i]);
+
+    free(msMaxZeroRowsMatrices);
 }
