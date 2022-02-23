@@ -127,4 +127,10 @@ int normMaxInMatrix(matrix m);
 
 void printMatrixWithMinNorm(matrix *ms, int nMatrix);
 
+int getScalarProduct(int *a, int *b, int n);
+
+int getScalarProductRowAndCol(matrix m, int i, int j);
+
+int getSpecialScalarProduct(matrix m, int n);
+
 #endif //LABA5B_MATRIX_H

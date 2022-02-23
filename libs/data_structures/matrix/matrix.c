@@ -441,13 +441,12 @@ position getLeftMin(const matrix m) {
 
 void swapPenultimateRow(matrix m) {
     int minColIndex = getLeftMin(m).colIndex;
-    int rows = m.nRows;
     int penultimateRow = m.nRows - 2;
 
-    int *minCol = (int *) malloc(sizeof(int) * rows);
+    int *minCol = (int *) malloc(sizeof(int) * m.nRows);
     BAD_ALLOC_CHECK(minCol);
 
-    for (int i = 0; i < rows; ++i)
+    for (int i = 0; i < m.nRows; ++i)
         minCol[i] = m.values[i][minColIndex];
 
     memcpy(m.values[penultimateRow], minCol, sizeof(int) * m.nCols);
@@ -525,4 +524,33 @@ void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
         if (msNorm[i] == min)
             outputMatrix(ms[i]);
     free(msNorm);
+}
+
+int getScalarProduct(int *a, int *b, int n) {
+    int result = 0;
+
+    for (int i = 0; i < n; ++i)
+        result += a[i] * b[i];
+
+    return result;
+}
+
+int getScalarProductRowAndCol(matrix m, int i, int j) {
+    int *column = malloc(sizeof(int) * m.nRows);
+    BAD_ALLOC_CHECK(column);
+
+    for (int k = 0; k < m.nRows; k++)
+        column[k] = m.values[k][j];
+    int result = getScalarProduct(m.values[i], column, m.nCols);
+
+    free(column);
+
+    return result;
+}
+
+int getSpecialScalarProduct(matrix m, int n) {
+    position maxPosRow = getMaxValuePos(m);
+    position minPosCol = getMinValuePos(m);
+
+    return getScalarProductRowAndCol(m, maxPosRow.rowIndex, minPosCol.colIndex);
 }

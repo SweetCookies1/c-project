@@ -2,6 +2,27 @@
 #include <stdbool.h>
 #include "libs/data_structures/matrix/matrix.h"
 
+void test_getMemMatrix() {
+    matrix testMatrix = getMemMatrix(3, 3);
+
+    assert(testMatrix.values != NULL);
+    assert(testMatrix.nRows == 3);
+    assert(testMatrix.nCols == 3);
+}
+
+void test_getMemArrayOfMatrices() {
+    matrix *matrices = getMemArrayOfMatrices(2, 3, 3);
+
+    assert(matrices != NULL);
+    assert(matrices[0].values != NULL);
+    assert(matrices[0].nRows == 3);
+    assert(matrices[0].nCols == 3);
+
+    assert(NULL != matrices[1].values);
+    assert(matrices[1].nRows == 3);
+    assert(matrices[1].nCols == 3);
+}
+
 void test_swapRows1() {
     matrix testMatrix = createMatrixFromArray(
             (int[]) {
@@ -710,7 +731,24 @@ void test_normMaxInMatrix() {
     assert(100 == res);
 }
 
+void test_getSpecialScalarProduct() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    1, 3, 4,
+                    6, 7, 8,
+                    2, 5, 9
+            }, 3, 3
+    );
+
+    int res = 50;
+
+    assert(getSpecialScalarProduct(testMatrix, 3) == res);
+}
+
 void test_matrix() {
+
+    test_getMemMatrix();
+    test_getMemArrayOfMatrices();
 
     test_swapRows();
     test_swapColumns();
@@ -740,7 +778,7 @@ void test_matrix() {
     test_countNonDescendingRowsMatrices();
     test_countZeroRows(); // тест промежуточной функции
     test_normMaxInMatrix(); // тест промежуточной функции
-
+    test_getSpecialScalarProduct();
 }
 
 int main() {
